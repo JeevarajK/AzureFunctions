@@ -23,6 +23,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Photos/Photos.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore Photos/Photos.sln
     - name: Test
       run: dotnet test --no-build --verbosity normal
