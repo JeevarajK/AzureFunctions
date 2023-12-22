@@ -22,8 +22,8 @@ namespace Photos
 
             try
             {
-                UploadResizedImage(myBlob, imageSmall, ImageSize.Small);
-                UploadResizedImage(myBlob, imageMedium, ImageSize.Medium);
+                await UploadResizedImage(myBlob, imageSmall, ImageSize.Small);
+                await UploadResizedImage(myBlob, imageMedium, ImageSize.Medium);
 
                 logger?.LogInformation($"Successfully resized");
             }
@@ -53,12 +53,12 @@ namespace Photos
                 var blobClientMedium = blobContainerMedium.GetBlobClient(name);
 
                 MemoryStream msSmall = new MemoryStream();
-                UploadResizedImage(myBlob, msSmall, ImageSize.Small);
+                await UploadResizedImage(myBlob, msSmall, ImageSize.Small);
                 msSmall.Position = 0;
                 await blobClientSmall.UploadAsync(msSmall);
 
                 MemoryStream msMedium = new MemoryStream();
-                UploadResizedImage(myBlob, msMedium, ImageSize.Medium);
+                await UploadResizedImage(myBlob, msMedium, ImageSize.Medium);
                 msMedium.Position = 0;
                 await blobClientMedium.UploadAsync(msMedium);
 
@@ -71,9 +71,9 @@ namespace Photos
             }
         }
 
-        private static void UploadResizedImage(Stream myBlob, Stream targetBlob, ImageSize imageSize)
+        private async static Task UploadResizedImage(Stream myBlob, Stream targetBlob, ImageSize imageSize)
         {
-            using (var image = SixLabors.ImageSharp.Image.Load(myBlob))
+            using (var image = await SixLabors.ImageSharp.Image.LoadAsync(myBlob))
             {
                 // Adjust the size as needed
                 int targetWidth = imageSize == ImageSize.Medium ? image.Width / 2 : image.Width / 4;
@@ -87,7 +87,7 @@ namespace Photos
                     }));
 
                 // Save the resized image to the destination container
-                image.Save(targetBlob, new JpegEncoder());
+                await image.SaveAsync(targetBlob, new JpegEncoder());
 
                 //Reset source stream position to start for next read
                 myBlob.Position = 0;
