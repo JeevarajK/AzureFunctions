@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Photos": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7205"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 34619,
+      "useSSL": false
+    }
+  }
+}
