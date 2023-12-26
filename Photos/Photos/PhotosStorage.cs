@@ -65,7 +65,7 @@ namespace Photos
 
             await items.AddAsync(newItem);
 
-            logger?.LogInformation($"Successfully uploaded {blobName} file and its metadata");
+            logger?.LogInformation($"Successfully uploaded {blobName} file and its metadata at {DateTime.Now.ToString()}");
 
             return new OkObjectResult(blobName);
 
