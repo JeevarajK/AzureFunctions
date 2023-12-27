@@ -21,6 +21,8 @@ name: Deploy DotNet project to Azure Function App
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: [ "main" ]
 
 env:
   AZURE_FUNCTIONAPP_NAME: 'azure-functions-jk'   # set this to your function app name on Azure
@@ -50,7 +52,7 @@ jobs:
       shell: pwsh # For Linux, use bash
       run: |
         pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-        dotnet build --configuration Release --output ./output
+        dotnet build Photos/Photos.sln --configuration Release --output ./output
         popd
 
     - name: 'Run Azure Functions Action'
