@@ -17,7 +17,7 @@ namespace Photos
     public static class PhotosSearch
     {
         [FunctionName("PhotosSearch")]
-        public static async Task<IActionResult> Run(
+        public static IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             [CosmosDB("photos", "metadata", Connection = Constants.CosmosDBConnectionString)] IEnumerable<PhotoUploadModel> photos,
             ILogger logger)
