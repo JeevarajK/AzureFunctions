@@ -9,6 +9,7 @@ namespace Photos
 {
     internal class Startup : FunctionsStartup
     {
+        //TO add appsettings.json
         //public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)
         //{
         //    // Set up configuration sources
